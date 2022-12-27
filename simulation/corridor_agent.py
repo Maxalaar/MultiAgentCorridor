@@ -1,0 +1,45 @@
+import gym
+from ray.rllib import MultiAgentEnv
+
+
+class CorridorAgent:
+    def __init__(self, environment: MultiAgentEnv, number: int):
+        self.id: str = 'corridor_agent_' + str(number)
+        self._environment: MultiAgentEnv = environment
+        self.observation_space = gym.spaces.Discrete(self._environment.end_position + 1)
+        self.action_space = gym.spaces.Discrete(2)
+        self._current_position: int = 0
+        self._current_reward: float = 0
+        self._current_observation: int = None
+        self._is_done: bool = False
+
+    def reset(self):
+        self._current_position = 0
+        self._current_reward = 0
+        self._current_observation = None
+        self._is_done = False
+
+    def compute_observation(self):
+        self._current_observation = self._current_position
+        return self._current_observation
+
+    def compute_reward(self):
+        if self._current_position >= self._environment.end_position:
+            self._current_reward = 1
+        else:
+            self._current_reward = -0.1
+        return self._current_reward
+
+    def compute_is_done(self):
+        if self._current_position >= self._environment.end_position:
+            self._is_done = True
+        return self._is_done
+
+    def compute_information(self):
+        return {}
+
+    def compute_action(self, action: int):
+        if action == 0 and self._current_position > 0:
+            self._current_position -= 1
+        elif action == 1:
+            self._current_position += 1
