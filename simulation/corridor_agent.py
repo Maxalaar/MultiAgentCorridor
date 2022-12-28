@@ -3,11 +3,12 @@ from ray.rllib import MultiAgentEnv
 
 
 class CorridorAgent:
+    observation_space = gym.spaces.Discrete(6)
+    action_space = gym.spaces.Discrete(2)
+
     def __init__(self, environment: MultiAgentEnv, number: int):
         self.id: str = 'corridor_agent_' + str(number)
         self._environment: MultiAgentEnv = environment
-        self.observation_space = gym.spaces.Discrete(self._environment.end_position + 1)
-        self.action_space = gym.spaces.Discrete(2)
         self._current_position: int = 0
         self._current_reward: float = 0
         self._current_observation: int = None

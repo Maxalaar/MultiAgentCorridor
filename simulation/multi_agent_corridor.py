@@ -5,10 +5,10 @@ from simulation.corridor_agent import CorridorAgent
 
 
 class MultiAgentCorridor(MultiAgentEnv):
-    def __init__(self, config):
+    def __init__(self, environment_configuration: dict):
         super().__init__()
-        self.number_agents = config['number_agents']
-        self.end_position = config['corridor_length']
+        self.number_agents = environment_configuration['number_agents']
+        self.end_position = 5
 
         self._spaces_in_preferred_format = True
         self._obs_space_in_preferred_format = True
