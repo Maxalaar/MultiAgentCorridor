@@ -3,15 +3,20 @@ import gym
 
 from ray.rllib.policy.policy import PolicySpec
 
-from simulation.corridor_agent import CorridorAgent
+from environment.corridor_agent import CorridorAgent
 
 
 def policies_dictionary():
     observation_space = CorridorAgent.observation_space
     action_space = CorridorAgent.action_space
+    configuration = {
+        'model': {
+            'custom_model': 'minimal_model',
+        },
+    }
     dictionary = {
-        'policy1': PolicySpec(observation_space=observation_space, action_space=action_space),
-        'policy2': PolicySpec(observation_space=observation_space, action_space=action_space),
+        'policy1': PolicySpec(observation_space=observation_space, action_space=action_space, config=configuration),
+        'policy2': PolicySpec(observation_space=observation_space, action_space=action_space, config=configuration),
     }
 
     return dictionary

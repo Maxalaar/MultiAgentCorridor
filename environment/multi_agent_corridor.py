@@ -2,7 +2,7 @@ import gym
 import random
 from ray.rllib import MultiAgentEnv
 
-from simulation.corridor_agent import CorridorAgent
+from environment.corridor_agent import CorridorAgent
 
 
 class MultiAgentCorridor(MultiAgentEnv):
@@ -81,13 +81,13 @@ class MultiAgentCorridor(MultiAgentEnv):
     def compute_simulation_is_done(self):
         simulation_is_done = True
 
-        # if an agent still has to act, the simulation is not stopped
+        # if an agent still has to act, the environment is not stopped
         for agent in self.agents_list:
             if not agent.compute_is_done():
                 simulation_is_done = False
                 break
 
-        # if the current step is equal or higher than the max step, the simulation is stopped
+        # if the current step is equal or higher than the max step, the environment is stopped
         if self.current_step >= self.max_step:
             simulation_is_done = True
 
