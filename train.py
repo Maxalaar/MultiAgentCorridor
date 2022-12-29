@@ -1,3 +1,4 @@
+import numpy as np
 import ray
 from ray.rllib.algorithms.algorithm import AlgorithmConfig, Algorithm
 from ray.rllib.algorithms.ppo import PPOConfig
@@ -13,6 +14,7 @@ ppo_classic_config = (
     .environment('multi_agent_corridor', disable_env_checking=True)
     .debugging(logger_creator=custom_logger_creator)
     .multi_agent(policies=policies_dictionary(), policy_mapping_fn=select_random_policy)
+    # .rollouts(horizon=10000)    # /!\
 )
 
 if __name__ == '__main__':
