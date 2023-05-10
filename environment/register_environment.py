@@ -9,6 +9,8 @@ def multi_agent_corridor_env_creator(args):
             'max_step': 50,
             'max_number_agents': 10,
             'min_number_agents': 1,
+            'probability_add_agent': 0.2,
+            'probability_remove_agent': 0.2,
         })
     return environment
 

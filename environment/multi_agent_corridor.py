@@ -3,6 +3,7 @@ import random
 from ray.rllib import MultiAgentEnv
 
 from environment.corridor_agent import CorridorAgent
+from custom_logger import PATH_EXPERIMENT
 
 
 class MultiAgentCorridor(MultiAgentEnv):
@@ -11,6 +12,8 @@ class MultiAgentCorridor(MultiAgentEnv):
         self.number_agents_start: int = environment_configuration['number_agents_start']
         self.max_number_agents: int = environment_configuration['max_number_agents']
         self.min_number_agents: int = environment_configuration['min_number_agents']
+        self.probability_add_agent: float = environment_configuration['probability_add_agent']
+        self.probability_remove_agent: float = environment_configuration['probability_remove_agent']
         self.max_step: int = environment_configuration['max_step']
         self.end_position: int = 5
 
@@ -64,6 +67,13 @@ class MultiAgentCorridor(MultiAgentEnv):
         self.compute_simulation_is_done()
 
         return self.observations_dictionary, self.rewards_dictionary, self.is_done_dictionary, self.agents_information_dictionary
+
+    def render(self, mode='video'):
+        if mode == 'human':
+            pass
+        elif mode == 'video':
+            pass
+            breakpoint()
 
     def clear_information_dictionaries(self):
         self.observations_dictionary = {}

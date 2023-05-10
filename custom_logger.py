@@ -6,7 +6,7 @@ import json
 from ray.rllib.algorithms.algorithm import AlgorithmConfig
 from ray.tune.logger import pretty_print
 
-
+PATH_EXPERIMENT: Path = None
 def custom_logger_creator(algorithm_config: AlgorithmConfig):
     # create 'results' directory
     from ray.tune.logger import UnifiedLogger
@@ -16,9 +16,9 @@ def custom_logger_creator(algorithm_config: AlgorithmConfig):
 
     # create path experiment
     time_string = datetime.today().strftime('%Y-%m-%d_%Hh-%Mm-%Ss')
-    name_directory_experiment: str = str(algorithm_config['env']) + '_' + str(
-        time_string)  # '"{}_{}".format("test", time_string)
+    name_directory_experiment: str = str(algorithm_config['env']) + '_' + str(time_string)
     path_experiment: Path = path_results.joinpath(name_directory_experiment)
+    PATH_EXPERIMENT = path_experiment
 
     # create directory of path experiment
     if not path_experiment.is_dir():
